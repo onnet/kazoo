@@ -37,7 +37,7 @@
        ).
 -define(TIMEOUT_MESSAGE, {'$kz_media_tts_cache', 'tts_timeout'}).
 
--record(state, {text :: ne_binary()
+-record(state, {text :: api_ne_binary()
                ,contents = <<>> :: binary()
                ,status :: 'streaming' | 'ready'
                ,kz_http_req_id :: kz_http:req_id()
@@ -299,11 +299,10 @@ kv_to_bin(L) ->
 start_timer() ->
     erlang:start_timer(?TIMEOUT_LIFETIME, self(), ?TIMEOUT_MESSAGE).
 
--spec stop_timer(reference() | _) -> 'ok'.
+-spec stop_timer(reference()) -> 'ok'.
 stop_timer(Ref) when is_reference(Ref) ->
     _ = erlang:cancel_timer(Ref),
-    'ok';
-stop_timer(_) -> 'ok'.
+    'ok'.
 
 -spec publish_doc_update(ne_binary()) -> 'ok'.
 publish_doc_update(Id) ->
