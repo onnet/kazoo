@@ -16,5 +16,10 @@
                        {'ok', ne_binary(), ne_binary()} | %% {'ok', ContentType, BinaryData}
                        {'error', 'tts_provider_failure', binary()}.
 
+-type asr_resp() :: kz_http:req_id() |
+                    {'ok', kz_json:object()} | %% {'ok', JObj}
+                    {'error', provider_errors()} |
+                    {'error',  'asr_provider_failure', kz_json:object()}.
+
 -define(KAZOO_SPEECH_HRL, 'true').
 -endif.
