@@ -95,7 +95,7 @@ init([Text, JObj]) ->
     Format = kz_json:get_value(<<"Format">>, JObj, <<"wav">>),
     Engine = kz_json:get_value(<<"Engine">>, JObj),
 
-    {'ok', ReqID} = kapps_speech:create(Engine, Text, Voice, Format, [{'receiver', self()}]),
+    {'ok', ReqID} = kazoo_tts:create(Engine, Text, Voice, Format, [{'receiver', self()}]),
 
     MediaName = kz_binary:md5(Text),
     lager:debug("text '~s' has id '~s'", [Text, MediaName]),

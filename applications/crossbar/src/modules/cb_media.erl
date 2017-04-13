@@ -476,7 +476,7 @@ maybe_save_tts(Context, _Text, _Voice, _Status) ->
 maybe_update_tts(Context, Text, Voice, 'success') ->
     JObj = cb_context:doc(Context),
     Voice = kz_json:get_value([<<"tts">>, <<"voice">>], JObj, ?DEFAULT_VOICE),
-    try kapps_speech:create(Text, Voice) of
+    try kazoo_tts:create(Text, Voice) of
         {'error', Reason} ->
             crossbar_doc:delete(Context),
             crossbar_util:response('error', kz_term:to_binary(Reason), Context);
@@ -514,7 +514,7 @@ maybe_update_tts(Context, _Text, _Voice, _Status) -> Context.
 maybe_merge_tts(Context, MediaId, Text, Voice, 'success') ->
     JObj = cb_context:doc(Context),
 
-    case kapps_speech:create(Text, Voice) of
+    case kazoo_tts:create(Text, Voice) of
         {'error', R} ->
             crossbar_util:response('error', kz_term:to_binary(R), Context);
         {'error', 'tts_provider_failure', R} ->
