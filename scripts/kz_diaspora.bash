@@ -199,9 +199,14 @@ function props_to_kz_http {
     search_and_replace_with_prefix fs[@] "props" "kz_http_util" "props_"
 }
 
-function kz_json_to_kz_doc {
+function kapps_speech_to_kazoo_speech {
     local fs=(create)
+    local asrs=(asr_freeform
+                asr_commands
+               )
+
     search_and_replace fs[@] "kapps_speech" "kazoo_tts" ""
+    search_and_replace_prefix asrs[@] "kazoo_speech" "kazoo_asr", "asr_"
 }
 
 echo "ensuring kz_term is used"
@@ -216,7 +221,7 @@ echo "ensuring kz_json:to_querystring is moved to kz_http_util"
 kz_json_to_kz_http
 echo "ensuring props:to_querystring is moved to kz_http_util"
 props_to_kz_http
-echo "ensuring kapps_speech to kazoo_tts"
-kapps_speech_to_kazoo_tts
+echo "ensuring kapps_speech to kazoo_speech"
+kapps_speech_to_kazoo_speech
 
 popd > /dev/null
