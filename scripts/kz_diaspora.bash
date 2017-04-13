@@ -46,7 +46,7 @@ function search_and_replace_prefix {
     PREFIX=$4
 
     for FUN in "${FUNS[@]}"; do
-        for FILE in `grep -rl "$FROM:$FUN" $ROOT/{core,applications}`; do
+        for FILE in $(grep -rl "$FROM:$FUN" $ROOT/{core,applications}); do
             replace_call_prefix $FROM $TO "$FUN" "$PREFIX" $FILE
         done
     done
@@ -201,12 +201,13 @@ function props_to_kz_http {
 
 function kapps_speech_to_kazoo_speech {
     local fs=(create)
+
     local asrs=(asr_freeform
                 asr_commands
                )
 
     search_and_replace fs[@] "kapps_speech" "kazoo_tts" ""
-    search_and_replace_prefix asrs[@] "kazoo_speech" "kazoo_asr", "asr_"
+    search_and_replace_prefix asrs[@] "kapps_speech" "kazoo_asr" "asr_"
 }
 
 echo "ensuring kz_term is used"
