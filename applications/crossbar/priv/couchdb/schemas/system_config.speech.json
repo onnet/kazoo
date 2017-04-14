@@ -51,6 +51,11 @@
             "description": "speech tts args encode",
             "type": "string"
         },
+        "tts_cache": {
+            "default": 3600000,
+            "description": "How long, in milliseconds, to cache TTS media files",
+            "type": "integer"
+        },
         "tts_default_voice": {
             "default": "female/en-US",
             "description": "speech tts default voice",

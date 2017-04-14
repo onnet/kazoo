@@ -10454,11 +10454,6 @@
                     "description": "media support account overrides",
                     "type": "boolean"
                 },
-                "tts_cache": {
-                    "default": 3600000,
-                    "description": "media tts cache",
-                    "type": "integer"
-                },
                 "use_https": {
                     "default": false,
                     "description": "media use https",
@@ -11867,6 +11862,11 @@
                     "default": "multipart",
                     "description": "speech tts args encode",
                     "type": "string"
+                },
+                "tts_cache": {
+                    "default": 3600000,
+                    "description": "How long, in milliseconds, to cache TTS media files",
+                    "type": "integer"
                 },
                 "tts_default_voice": {
                     "default": "female/en-US",

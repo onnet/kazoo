@@ -30,11 +30,8 @@
 
 -define(SERVER, ?MODULE).
 
--define(MOD_CONFIG_CAT, <<"speech">>).
+-define(TIMEOUT_LIFETIME, kazoo_tts:cache_time_ms()).
 
--define(TIMEOUT_LIFETIME
-       ,kapps_config:get_integer(?CONFIG_CAT, <<"tts_cache">>, ?MILLISECONDS_IN_HOUR)
-       ).
 -define(TIMEOUT_MESSAGE, {'$kz_media_tts_cache', 'tts_timeout'}).
 
 -record(state, {text :: api_ne_binary()

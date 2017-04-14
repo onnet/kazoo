@@ -11,7 +11,6 @@
 %%%-------------------------------------------------------------------
 -module(kapps_call_command).
 
--include_lib("kazoo_translator/include/kazoo_translator.hrl").
 -include("kapps_call_command.hrl").
 
 -export([presence/2, presence/3, presence/4, presence/5]).
@@ -1366,7 +1365,7 @@ tts(SayMe, Call) -> tts(SayMe, <<"female">>, Call).
 tts(SayMe, Voice, Call) -> tts(SayMe, Voice, kapps_call:language(Call), Call).
 tts(SayMe, Voice, Lang, Call) -> tts(SayMe, Voice, Lang, ?ANY_DIGIT, Call).
 tts(SayMe, Voice, Lang, Terminators, Call) ->
-    tts(SayMe, Voice, Lang, Terminators, ?DEFAULT_TTS_ENGINE(Call), Call).
+    tts(SayMe, Voice, Lang, Terminators, kazoo_tts:default_engine(Call), Call).
 tts(SayMe, Voice, Lang, Terminators, Engine, Call) ->
     NoopId = kz_datamgr:get_uuid(),
 
@@ -1394,7 +1393,7 @@ tts_command(SayMe, Voice, Call) ->
 tts_command(SayMe, Voice, Language, Call) ->
     tts_command(SayMe, Voice, Language, ?ANY_DIGIT, Call).
 tts_command(SayMe, Voice, Language, Terminators, Call) ->
-    tts_command(SayMe, Voice, Language, Terminators, ?DEFAULT_TTS_ENGINE(Call), Call).
+    tts_command(SayMe, Voice, Language, Terminators, kazoo_tts:default_engine(Call), Call).
 tts_command(SayMe, Voice, Language, Terminators, Engine, Call) ->
     kz_json:from_list(
       props:filter_undefined(
@@ -1417,7 +1416,7 @@ tts_language('undefined', Call) -> kapps_call:language(Call);
 tts_language(Language, _Call) -> Language.
 
 -spec tts_engine(api_ne_binary(), kapps_call:call()) -> ne_binary().
-tts_engine('undefined', Call) -> ?DEFAULT_TTS_ENGINE(Call);
+tts_engine('undefined', Call) -> kazoo_tts:default_engine(Call);
 tts_engine(Engine, _Call) -> Engine.
 
 -spec b_tts(api_binary(), kapps_call:call()) -> kapps_api_std_return().
