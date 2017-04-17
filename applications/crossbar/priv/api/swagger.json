@@ -2705,6 +2705,10 @@
                     "required": false,
                     "type": "string"
                 },
+                "terminators": {
+                    "description": "",
+                    "type": "array"
+                },
                 "text": {
                     "description": "The text to speak",
                     "maxLength": 1000,
@@ -11831,6 +11835,16 @@
                 "asr_freeform_url": {
                     "default": "http://api.ispeech.org/api/rest",
                     "description": "speech asr freeform url",
+                    "type": "string"
+                },
+                "asr_locale": {
+                    "default": "en-us",
+                    "description": "speech asr default locale",
+                    "type": "string"
+                },
+                "asr_mime_type": {
+                    "default": "application/wav",
+                    "description": "speech asr mime type",
                     "type": "string"
                 },
                 "asr_prefered_content_type": {
