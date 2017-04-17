@@ -85,8 +85,8 @@ stop(Srv) ->
 init([Text, JObj]) ->
     kz_util:put_callid(kz_binary:md5(Text)),
 
-    Voice = list_to_binary([kz_json:get_value(<<"Voice">>, JObj, <<"female">>), "/"
-                           ,get_language(kz_json:get_value(<<"Language">>, JObj, <<"en-us">>))
+    Voice = list_to_binary([kz_json:get_value(<<"Voice">>, JObj, kazoo_tts:default_voice()), "/"
+                           ,get_language(kz_json:get_value(<<"Language">>, JObj, kazoo_tts:default_language()))
                            ]),
 
     Format = kz_json:get_value(<<"Format">>, JObj, <<"wav">>),
