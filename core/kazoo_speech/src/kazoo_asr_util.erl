@@ -36,13 +36,15 @@ convert_content(_, ContentType, ConvertTo) ->
     lager:info("unsupported conversion from %s to %s", [ContentType, ConvertTo]),
     'error'.
 
+-spec default_content_types() -> ne_binaries().
 default_content_types() ->
-    kapps_config:get_list(?MOD_CONFIG_CAT
-                         ,<<"asr_content_types">>
-                         ,[<<"application/mpeg">>
-                          ,<<"application/wav">>
-                          ]).
+    kapps_config:get(?MOD_CONFIG_CAT
+                    ,<<"asr_content_types">>
+                    ,[<<"application/mpeg">>
+                     ,<<"application/wav">>
+                     ]).
 
+-spec default_preferred_content_type() -> ne_binary().
 default_preferred_content_type() ->
     kapps_config:get_ne_binary(?MOD_CONFIG_CAT
                               ,<<"asr_prefered_content_type">>
