@@ -1361,7 +1361,7 @@ b_play(Media, Terminators, Leg, Call) ->
 -spec tts(api_binary(), api_binary(), api_binary(), api_binaries(), kapps_call:call()) -> ne_binary().
 -spec tts(api_binary(), api_binary(), api_binary(), api_binaries(), api_binary(), kapps_call:call()) -> ne_binary().
 
-tts(SayMe, Call) -> tts(SayMe, <<"female">>, Call).
+tts(SayMe, Call) -> tts(SayMe, kazoo_tts:default_voice(), Call).
 tts(SayMe, Voice, Call) -> tts(SayMe, Voice, kapps_call:language(Call), Call).
 tts(SayMe, Voice, Lang, Call) -> tts(SayMe, Voice, Lang, ?ANY_DIGIT, Call).
 tts(SayMe, Voice, Lang, Terminators, Call) ->
@@ -1387,7 +1387,7 @@ tts(SayMe, Voice, Lang, Terminators, Engine, Call) ->
 -spec tts_command(api_binary(), api_binary(), api_binary(), api_binaries(), kapps_call:call()) -> kz_json:object().
 -spec tts_command(api_binary(), api_binary(), api_binary(), api_binaries(), api_binary(), kapps_call:call()) -> kz_json:object().
 tts_command(SayMe, Call) ->
-    tts_command(SayMe, <<"female">>, Call).
+    tts_command(SayMe, kazoo_tts:default_voice(), Call).
 tts_command(SayMe, Voice, Call) ->
     tts_command(SayMe, Voice, kapps_call:language(Call), Call).
 tts_command(SayMe, Voice, Language, Call) ->
@@ -1409,7 +1409,7 @@ tts_command(SayMe, Voice, Language, Terminators, Engine, Call) ->
 tts_terminators('undefined') -> ?ANY_DIGIT;
 tts_terminators(Terminators) -> Terminators.
 
-tts_voice('undefined') -> <<"female">>;
+tts_voice('undefined') -> kazoo_tts:default_voice();
 tts_voice(Voice) -> Voice.
 
 tts_language('undefined', Call) -> kapps_call:language(Call);
