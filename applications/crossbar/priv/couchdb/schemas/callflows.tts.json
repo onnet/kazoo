@@ -18,6 +18,10 @@
             "required": false,
             "type": "string"
         },
+        "terminators": {
+            "description": "",
+            "type": "array"
+        },
         "text": {
             "description": "The text to speak",
             "maxLength": 1000,
