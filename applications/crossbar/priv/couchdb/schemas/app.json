@@ -64,9 +64,9 @@
             "type": "string"
         },
         "masqueradable": {
+            "default": true,
             "description": "Whether an application is masqueradable or not",
             "required": false,
-            "default": true,
             "type": "boolean"
         },
         "name": {
