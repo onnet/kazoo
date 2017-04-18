@@ -33,7 +33,7 @@
                 "0",
                 "#"
             ],
-            "description": "",
+            "description": "What DTMF can terminate playback of the audio",
             "type": "array(string)"
         },
         "text": {
