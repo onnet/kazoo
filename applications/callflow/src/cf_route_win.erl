@@ -279,9 +279,27 @@ update_ccvs(Call) ->
               [{<<"Hold-Media">>, kz_attributes:moh_attributes(<<"media_id">>, Call)}
               ,{<<"Caller-ID-Name">>, CIDName}
               ,{<<"Caller-ID-Number">>, CIDNumber}
+              ,{<<"Fax-T38-Enabled">>, maybe_enable_fax(Call)}
                | get_incoming_security(Call)
               ]),
     kapps_call:set_custom_channel_vars(Props, Call).
+
+maybe_enable_fax(Call) ->
+    CCVs = kapps_call:custom_channel_vars(Call),
+    case kz_json:get_value(<<"Authorizing-Type">>, CCVs) of
+        <<"device">> ->
+            DeviceId = kz_json:get_value(<<"Authorizing-ID">>, CCVs),
+            AccountId = kz_json:get_value(<<"Account-ID">>, CCVs),
+            AccountDb = kz_util:format_account_id(AccountId, 'encoded'),
+            case kz_datamgr:open_cache_doc(AccountDb, DeviceId) of
+                {'error', _} -> 'undefined';
+                {'ok', JObj} ->
+                    kz_json:get_value([<<"media">>, <<"fax_option">>], JObj)
+            end;
+        <<"resource">> ->
+            kz_json:get_value(<<"Resource-Fax-Option">>, CCVs);
+        _ -> 'undefined'
+    end.
 
 -spec maybe_start_metaflow(kapps_call:call()) -> kapps_call:call().
 -spec maybe_start_metaflow(kapps_call:call(), api_binary()) -> kapps_call:call().

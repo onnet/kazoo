@@ -612,6 +612,8 @@ get_fs_key_and_value(<<"ringback">>=Key, Value, _UUID) ->
     [{<<"ringback">>, maybe_sanitize_fs_value(Key, Value)}
     ,{<<"transfer_ringback">>, maybe_sanitize_fs_value(<<"transfer_ringback">>, Value)}
     ];
+get_fs_key_and_value(<<"Fax-T38-Enabled">>=Key, Value, _UUID) ->
+    [{<<"fax_enable_t38">>, maybe_sanitize_fs_value(Key, Value)}];
 get_fs_key_and_value(?CCV(Key), Val, UUID) ->
     get_fs_key_and_value(Key, Val, UUID);
 get_fs_key_and_value(Key, Val, _UUID)

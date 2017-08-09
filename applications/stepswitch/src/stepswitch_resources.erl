@@ -822,8 +822,9 @@ gateway_from_uri_settings(#gateway{format_from_uri='true'
 
 -spec maybe_get_t38(gateway(), kapi_offnet_resource:req()) -> kz_proplist().
 maybe_get_t38(#gateway{fax_option=FaxOption}, OffnetJObj) ->
-    Flags = kapi_offnet_resource:flags(OffnetJObj, []),
-    case lists:member(<<"fax">>, Flags) of
+  %  Flags = kapi_offnet_resource:flags(OffnetJObj, []),
+  %  case lists:member(<<"fax">>, Flags) of
+    case FaxOption of
         'false' -> [];
         'true' ->
             kapps_call_command:get_outbound_t38_settings(FaxOption
