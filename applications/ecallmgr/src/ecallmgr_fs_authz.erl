@@ -258,6 +258,7 @@ allow_call(Props, _CallId, _Node) ->
              ,{<<"Reseller-Billing">>, kzd_freeswitch:reseller_billing(Props)}
              ,{<<"Reseller-Trunk-Usage">>, kzd_freeswitch:reseller_trunk_usage(Props)}
              ,{<<"Global-Resource">>, kzd_freeswitch:is_consuming_global_resource(Props)}
+             ,{<<"Fax-T38-Enabled">>, <<"true">>}
              ,{<<"Channel-Authorized">>, <<"true">>}
              ]),
     case props:is_true(<<"Call-Setup">>, Props, 'false') of
