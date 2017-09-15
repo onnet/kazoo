@@ -37624,6 +37624,49 @@
                 }
             }
         },
+        "/accounts/{ACCOUNT_ID}/promised_payment": {
+            "get": {
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/auth_token_header",
+                        "required": true
+                    },
+                    {
+                        "$ref": "#/parameters/account_id"
+                    }
+                ]
+            },
+            "patch": {
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/auth_token_header",
+                        "required": true
+                    },
+                    {
+                        "$ref": "#/parameters/account_id"
+                    }
+                ]
+            },
+            "post": {
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "promised_payment",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/promised_payment"
+                        }
+                    },
+                    {
+                        "$ref": "#/parameters/auth_token_header",
+                        "required": true
+                    },
+                    {
+                        "$ref": "#/parameters/account_id"
+                    }
+                ]
+            }
+        },
         "/accounts/{ACCOUNT_ID}/queues": {
             "get": {
                 "parameters": [
