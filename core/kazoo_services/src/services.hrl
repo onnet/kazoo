@@ -4,6 +4,7 @@
 -include_lib("kazoo_stdlib/include/kz_databases.hrl").
 -include_lib("kazoo_stdlib/include/kz_log.hrl").
 -include_lib("kazoo_services/include/kazoo_services.hrl").
+-include_lib("kazoo_documents/include/kzd_ratedeck.hrl").
 
 -define(APP, 'kazoo_services').
 -define(APP_NAME, (atom_to_binary(?APP, utf8))).

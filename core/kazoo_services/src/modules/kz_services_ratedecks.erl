@@ -8,6 +8,7 @@
 -export([fetch/1]).
 -export([id/1]).
 -export([name/1]).
+-export([ratedecks/0]).
 
 -include("services.hrl").
 
@@ -45,6 +46,19 @@ id(Thing) ->
 -spec name(kz_services:services() | kz_term:ne_binary()) -> kz_term:api_ne_binary().
 name(Thing) ->
     kzd_ratedeck:name(fetch(Thing)).
+
+%%------------------------------------------------------------------------------
+%% @doc
+%% @end
+%%------------------------------------------------------------------------------
+-spec ratedecks() -> kz_term:ne_binaries().
+ratedecks() ->
+    {'ok', Dbs} = kz_datamgr:db_list([{'startkey', ?KZ_RATES_DB}
+                                     ,{'endkey',   ?UNENCODED_RATEDECK_DB(<<"\ufff0">>)}
+                                     ]),
+    [kzd_ratedeck:format_ratedeck_db(Db)
+     || Db <- Dbs
+    ].
 
 %%------------------------------------------------------------------------------
 %% @doc
