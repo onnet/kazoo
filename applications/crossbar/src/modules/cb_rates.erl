@@ -180,8 +180,10 @@ validate_rate(Context, Id, ?HTTP_DELETE) ->
 
 -spec ratedecks_list(cb_context:context()) -> kz_term:proplist().
 ratedecks_list(Context) ->
-    RDs = kz_services_ratedecks:ratedecks(),
-    cb_context:setters(Context, [{fun cb_context:set_resp_data/2, RDs}
+    Props = [{<<"default_ratedeck">>, kz_services_ratedecks:default_ratedeck()}
+            ,{<<"ratedecks">>, kz_services_ratedecks:ratedecks()}
+            ],
+    cb_context:setters(Context, [{fun cb_context:set_resp_data/2, kz_json:from_list(Props)}
                                 ,{fun cb_context:set_resp_status/2, 'success'}
                                 ]).
 

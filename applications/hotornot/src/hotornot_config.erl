@@ -12,8 +12,6 @@
         ,default_cost/0
         ,default_internal_cost/0
 
-        ,default_ratedeck/0
-
         ,mobile_rate/0
 
         ,filter_list/0
@@ -62,10 +60,6 @@ filter_list() ->
                                                    ,<<"route_options">>
                                                    ,<<"routes">>
                                                    ]).
-
--spec default_ratedeck() -> kz_term:ne_binary().
-default_ratedeck() ->
-    kapps_config:get_ne_binary(?APP_NAME, <<"default_ratedeck">>, ?KZ_RATES_DB).
 
 -spec mobile_rate() -> kz_term:api_object().
 mobile_rate() ->

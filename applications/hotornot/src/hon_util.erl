@@ -126,7 +126,7 @@ account_ratedeck(AccountId) ->
 -spec account_ratedeck(kz_term:api_ne_binary(), kz_term:api_ne_binary()) -> kz_term:ne_binary().
 account_ratedeck('undefined', 'undefined') ->
     lager:info("no account supplied, using default ratedeck"),
-    hotornot_config:default_ratedeck();
+    kz_services_ratedecks:default_ratedeck();
 account_ratedeck('undefined', <<_/binary>> = RatedeckId) ->
     lager:info("using supplied ratedeck ~s", [RatedeckId]),
     kzd_ratedeck:format_ratedeck_db(RatedeckId);
@@ -143,15 +143,15 @@ account_ratedeck(AccountId, _RatedeckId) ->
 -spec reseller_ratedeck(kz_term:ne_binary(), kz_term:api_ne_binary()) -> kz_term:ne_binary().
 reseller_ratedeck(_AccountId, 'undefined') ->
     lager:debug("no reseller for ~s, using default ratedeck", [_AccountId]),
-    hotornot_config:default_ratedeck();
+    kz_services_ratedecks:default_ratedeck();
 reseller_ratedeck(ResellerId, ResellerId) ->
     lager:debug("account ~s is own reseller, using system setting", [ResellerId]),
-    hotornot_config:default_ratedeck();
+    kz_services_ratedecks:default_ratedeck();
 reseller_ratedeck(_AccountId, ResellerId) ->
     case kz_services_ratedecks:id(ResellerId) of
         'undefined' ->
             lager:debug("failed to find reseller ~s ratedeck, using default", [_AccountId]),
-            hotornot_config:default_ratedeck();
+            kz_services_ratedecks:default_ratedeck();
         RatedeckId ->
             lager:info("using reseller ~s ratedeck ~s for account ~s"
                       ,[ResellerId, RatedeckId, _AccountId]

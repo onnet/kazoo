@@ -9,6 +9,7 @@
 -export([id/1]).
 -export([name/1]).
 -export([ratedecks/0]).
+-export([default_ratedeck/0]).
 
 -include("services.hrl").
 
@@ -59,6 +60,15 @@ ratedecks() ->
     [kzd_ratedeck:format_ratedeck_db(Db)
      || Db <- Dbs
     ].
+
+%%------------------------------------------------------------------------------
+%% @doc
+%% @end
+%%------------------------------------------------------------------------------
+-spec default_ratedeck() -> kz_term:ne_binary().
+default_ratedeck() ->
+%%    kapps_config:get_ne_binary(?APP_NAME, <<"default_ratedeck">>, ?KZ_RATES_DB).
+    kapps_config:get_ne_binary(<<"hotornot">>, <<"default_ratedeck">>, ?KZ_RATES_DB).
 
 %%------------------------------------------------------------------------------
 %% @doc
