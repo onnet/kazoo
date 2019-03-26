@@ -152,7 +152,7 @@ validate(Context, ?NUMBER, Phonenumber) ->
 
 -spec validate_rates(cb_context:context(), http_method()) -> cb_context:context().
 validate_rates(Context, ?HTTP_GET) ->
-    summary(cb_context:set_account_db(Context, ratedeck_db(Context)));
+    summary(cb_context:set_account_db(Context, ratedeck_db(Context)), cb_context:req_value(Context, <<"prefix">>));
 validate_rates(Context, ?HTTP_PUT) ->
     create(cb_context:set_account_db(Context, ratedeck_db(Context)));
 validate_rates(Context, ?HTTP_POST) ->
@@ -280,9 +280,14 @@ ensure_routes_set(Rate, _Routes) ->
 %% resource.
 %% @end
 %%------------------------------------------------------------------------------
--spec summary(cb_context:context()) -> cb_context:context().
-summary(Context) ->
-    crossbar_doc:load_view(?CB_LIST, [], Context, fun normalize_view_results/2).
+-spec summary(cb_context:context(), kz_term:api_binary()) -> cb_context:context().
+summary(Context, 'undefined') ->
+    crossbar_doc:load_view(?CB_LIST, [], Context, fun normalize_view_results/2);
+summary(Context, Prefix) ->
+    {'ok', Rates} = hon_util:candidate_rates(Prefix),
+    cb_context:setters(Context, [{fun cb_context:set_resp_data/2, Rates}
+                                ,{fun cb_context:set_resp_status/2, 'success'}
+                                ]).
 
 %%------------------------------------------------------------------------------
 %% @doc Check the uploaded file for CSV
